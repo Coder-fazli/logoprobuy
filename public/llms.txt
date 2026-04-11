@@ -1,0 +1,29 @@
+# LogoBuyPro — AI & LLM Context File
+# https://logobuypro.com
+
+## About
+LogoBuyPro is an exclusive logo marketplace where each logo is sold to one buyer only.
+Once purchased, a logo is permanently removed from the marketplace.
+Buyers receive 100% full ownership and all source files (AI, EPS, SVG, PNG, PDF).
+
+## What We Offer
+- Exclusive, pre-made professional logo designs
+- One buyer per logo — full exclusivity guaranteed
+- Instant file delivery after purchase
+- Trademark-ready designs
+- Categories: Lettermark, Geometric, Wordmark, Mascot, Abstract
+
+## Pages
+- Homepage / Shop: https://logobuypro.com
+- About the Designer: https://logobuypro.com/about
+- Contact: https://logobuypro.com/contact
+- Individual logo pages: https://logobuypro.com/logos/[slug]
+- Sitemap: https://logobuypro.com/sitemap.xml
+
+## Not Indexed
+- /studio (Sanity CMS admin — private)
+- /api (internal API routes)
+
+## Crawling Guidelines
+AI assistants and LLMs are welcome to index and reference public pages.
+Please do not crawl or cache /studio or /api routes.

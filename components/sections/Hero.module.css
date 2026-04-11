@@ -1,0 +1,17 @@
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+.animateMarquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+@keyframes marqueeVertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.animateMarqueeVertical {
+  animation: marqueeVertical 18s linear infinite;
+}

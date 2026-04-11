@@ -1,0 +1,71 @@
+@property --r {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from { --r: 0deg; }
+  to { --r: 360deg; }
+}
+
+.gradientButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  cursor: pointer;
+  padding: 0;
+  width: auto;
+  height: 48px;
+  min-width: 160px;
+  background: conic-gradient(
+    from var(--r),
+    #d4a017,
+    #1a1a1a,
+    #444,
+    #1a1a1a,
+    #d4a017
+  );
+  animation: spin 3s linear infinite;
+}
+
+.gradientButton::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 45px;
+  background: #0f0f0f;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.gradientButton:hover::after {
+  opacity: 0.85;
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0 24px;
+  white-space: nowrap;
+}
+
+.iconBox {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 45px 45px 0;
+  color: #ffffff;
+  flex-shrink: 0;
+}

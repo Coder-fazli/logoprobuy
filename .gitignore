@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# loose local images (not project assets)
+*.jpeg
+*.jpg
+!public/*.jpg
+!public/*.jpeg
