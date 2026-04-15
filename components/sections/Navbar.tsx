@@ -37,15 +37,15 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-6 lg:px-12 h-16 flex items-center justify-between relative">
 
-          {/* Logo */}
-          <a href="/" className="flex items-center shrink-0">
+          {/* Logo — pinned left, never overlaps centred nav */}
+          <a href="/" className="flex items-center shrink-0 min-w-[180px]">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={logoAlt ?? 'LogoBuyPro'}
                 width={logoWidth}
                 height={logoHeight}
-                style={{ width: logoWidth, height: logoHeight, objectFit: 'contain' }}
+                style={{ maxHeight: 36, width: 'auto', objectFit: 'contain' }}
               />
             ) : (
               <div className="flex items-center gap-2">
