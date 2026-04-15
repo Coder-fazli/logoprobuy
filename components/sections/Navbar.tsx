@@ -35,17 +35,15 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-6 lg:px-12 h-16 flex items-center justify-between relative">
+        <div className="container mx-auto px-6 lg:px-12 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
 
-          {/* Logo — pinned left, never overlaps centred nav */}
-          <a href="/" className="flex items-center shrink-0 min-w-[180px]">
+          {/* Logo — always left column */}
+          <a href="/" className="flex items-center justify-start">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={logoAlt ?? 'LogoBuyPro'}
-                width={logoWidth}
-                height={logoHeight}
-                style={{ maxHeight: 36, width: 'auto', objectFit: 'contain' }}
+                style={{ height: logoHeight, width: 'auto', objectFit: 'contain', display: 'block' }}
               />
             ) : (
               <div className="flex items-center gap-2">
@@ -57,8 +55,8 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
             )}
           </a>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
+          {/* Desktop nav — always centre column */}
+          <nav className="hidden md:flex items-center">
             <ul className="flex items-center">
               {NAV_ITEMS.map((item) => (
                 <button
@@ -98,14 +96,16 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
             </ul>
           </nav>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <MenuToggleIcon open={menuOpen} className="w-7 h-7" />
-          </button>
+          {/* Right column — mobile toggle (desktop stays empty) */}
+          <div className="flex items-center justify-end">
+            <button
+              className="md:hidden p-2 text-foreground"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              <MenuToggleIcon open={menuOpen} className="w-7 h-7" />
+            </button>
+          </div>
 
         </div>
       </header>
