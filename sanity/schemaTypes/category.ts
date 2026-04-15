@@ -43,11 +43,6 @@ export const category = defineType({
       title: 'İkon',
       type: 'image',
     }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-    }),
   ],
 
   preview: {

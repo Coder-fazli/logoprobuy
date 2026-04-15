@@ -87,14 +87,6 @@ export const logo = defineType({
       },
       description: 'Hədəf sənaye: Tech, Fashion, Food…',
     }),
-    defineField({
-      name: 'tags',
-      title: 'Etiketlər',
-      type: 'array',
-      group: 'content',
-      of: [{ type: 'string' }],
-      options: { layout: 'tags' },
-    }),
 
     // ── Təfərrüatlar ──────────────────────────────────────────
     defineField({

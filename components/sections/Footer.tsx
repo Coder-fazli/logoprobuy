@@ -4,28 +4,24 @@ const columns = [
   {
     title: 'Explore',
     links: [
-      { label: 'Browse Logos', href: '#' },
-      { label: 'Categories', href: '#' },
-      { label: 'Featured', href: '#' },
-      { label: 'New Arrivals', href: '#' },
+      { label: 'Browse Logos', href: '/logos' },
+      { label: 'Featured', href: '/#logos' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About Us', href: '#' },
-      { label: 'Blog', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Press', href: '#' },
+      { label: 'About Us', href: '/about' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {
     title: 'Support',
     links: [
-      { label: 'Help Center', href: '#' },
-      { label: 'Licensing', href: '#' },
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
+      { label: 'Help Center', href: '/help' },
+      { label: 'Licensing', href: '/licensing' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Terms of Service', href: '/terms' },
     ],
   },
 ];
@@ -120,18 +116,18 @@ export default function Footer() {
 
       {/* Social bar */}
       <div className="border-t border-white/10 py-4">
-        <div className="container mx-auto px-6 lg:px-12 flex flex-col items-center gap-4">
+        <div className="container mx-auto px-6 lg:px-12 flex flex-col items-center gap-3">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/40">Follow Me</p>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
             {socials.map(({ svg, label, href }) => (
               <Link
                 key={label}
                 href={href}
                 aria-label={label}
-                className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs sm:text-sm text-white/60 hover:text-white transition-colors duration-200"
               >
-                {svg}
-                <span>{label}</span>
+                <span className="[&>svg]:w-3.5 [&>svg]:h-3.5 sm:[&>svg]:w-4 sm:[&>svg]:h-4">{svg}</span>
+                <span className="hidden xs:inline sm:inline">{label}</span>
               </Link>
             ))}
           </div>

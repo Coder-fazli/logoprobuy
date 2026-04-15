@@ -25,7 +25,7 @@ export default async function ContactPage() {
   const data = await getContactPage();
 
   const headline  = data?.headline  ?? "Let's work together!";
-  const email     = data?.email     ?? 'hello@logobuypro.com';
+  const email     = data?.email     ?? 'jeyhunmd111@gmail.com';
   const replyTime = data?.replyTime ?? 'Get a reply to you within 1 - 8 hrs';
 
   return (
