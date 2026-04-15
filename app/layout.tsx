@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getSettings } from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
 import "./globals.css";
 
 export const dynamic = 'force-dynamic';
@@ -21,16 +22,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSettings();
-  const faviconUrl = settings?.favicon?.asset.url;
+  const faviconUrl = settings?.favicon
+    ? urlFor(settings.favicon).width(192).height(192).fit('crop').url()
+    : '/favicon.png';
 
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <head>
         {faviconUrl && (
           <>
-            <link rel="icon" href={faviconUrl} />
+            <link rel="icon" href={faviconUrl} sizes="any" type="image/png" />
+            <link rel="icon" href={faviconUrl} sizes="192x192" type="image/png" />
+            <link rel="apple-touch-icon" href={faviconUrl} sizes="180x180" />
             <link rel="shortcut icon" href={faviconUrl} />
-            <link rel="apple-touch-icon" href={faviconUrl} />
           </>
         )}
       </head>

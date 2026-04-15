@@ -34,19 +34,17 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-6 lg:px-12 min-h-16 py-2 grid grid-cols-[1fr_auto_1fr] items-center">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-border overflow-hidden" style={{ height: 64 }}>
+        <div className="container mx-auto px-6 lg:px-12 h-16 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]">
 
           {/* Logo — always left column */}
-          <a href="/" className="flex items-center justify-start overflow-hidden">
+          <a href="/" className="flex items-center justify-start overflow-hidden -ml-2 md:ml-0">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={logoAlt ?? 'LogoBuyPro'}
                 style={{
                   height: logoHeight,
-                  maxHeight: logoHeight,
-                  maxWidth: '100%',
                   width: 'auto',
                   objectFit: 'contain',
                   display: 'block',

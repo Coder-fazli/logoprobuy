@@ -35,8 +35,8 @@ export const settings = defineType({
       name: 'favicon',
       title: 'Favicon (İkon)',
       type: 'image',
-      description: 'Brauzer tabında görünən kiçik ikon. 32×32 px və ya 64×64 px PNG/ICO tövsiyə olunur.',
-      options: { hotspot: false },
+      description: 'Brauzer tabında görünən kiçik ikon. Yükləndikdən sonra kəsmə/fokuslama üçün şəkli redaktə edin.',
+      options: { hotspot: true },
     }),
   ],
 
