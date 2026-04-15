@@ -67,10 +67,25 @@ export const logo = defineType({
     }),
     defineField({
       name: 'category',
-      title: 'Kateqoriya',
+      title: 'Kateqoriya (Üslub)',
       type: 'reference',
       group: 'content',
       to: [{ type: 'category' }],
+      options: {
+        filter: 'kind == "style"',
+      },
+      description: 'Loqonun üslubu: Lettermark, Mascot, Geometric…',
+    }),
+    defineField({
+      name: 'industry',
+      title: 'Sənaye',
+      type: 'reference',
+      group: 'content',
+      to: [{ type: 'category' }],
+      options: {
+        filter: 'kind == "industry"',
+      },
+      description: 'Hədəf sənaye: Tech, Fashion, Food…',
     }),
     defineField({
       name: 'tags',

@@ -7,14 +7,14 @@ import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 
 const NAV_ITEMS = [
-  { id: 1, label: 'Shop',    href: '/' },
+  { id: 1, label: 'Shop',    href: '/logos' },
   { id: 2, label: 'About',   href: '/about',   newTab: true },
   { id: 3, label: 'Contact', href: '/contact', newTab: true },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const currentItem = NAV_ITEMS.find((item) => item.href === pathname) ?? NAV_ITEMS[0];
+  const currentItem = NAV_ITEMS.find((item) => pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))) ?? NAV_ITEMS[0];
   const [active, setActive] = useState(currentItem);
   const [isHover, setIsHover] = useState<typeof NAV_ITEMS[0] | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);

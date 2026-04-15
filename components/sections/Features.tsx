@@ -92,7 +92,7 @@ export default function Features({ cms }: { cms?: HomePageData | null }) {
             {plain}{' '}
             <span className="relative inline-block">
               <span className="relative z-10">{highlighted}</span>
-              <span className="absolute bottom-1 left-0 w-full h-3 bg-amber-200/60 rounded-sm -z-0" />
+              <span className="absolute bottom-1 left-0 w-full h-3 bg-[#D33C3C]/30 rounded-sm -z-0" />
             </span>
           </h2>
           <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">

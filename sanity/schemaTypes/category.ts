@@ -6,6 +6,20 @@ export const category = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'kind',
+      title: 'Növ',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Industry (sənaye)', value: 'industry' },
+          { title: 'Style (üslub)', value: 'style' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'style',
+      validation: (r) => r.required(),
+    }),
+    defineField({
       name: 'title',
       title: 'Başlıq',
       type: 'string',
@@ -35,4 +49,14 @@ export const category = defineType({
       type: 'seo',
     }),
   ],
+
+  preview: {
+    select: { title: 'title', kind: 'kind' },
+    prepare({ title, kind }) {
+      return {
+        title,
+        subtitle: kind === 'industry' ? 'Industry' : 'Style',
+      };
+    },
+  },
 });

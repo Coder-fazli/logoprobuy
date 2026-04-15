@@ -13,6 +13,7 @@ export interface SanityLogo {
   buyLink?: string;
   sold?: boolean;
   category?: { title: string; slug: { current: string } };
+  industry?: { title: string; slug: { current: string } };
   tags?: string[];
   faq?: { question: string; answer: string }[];
   seo?: {
@@ -38,6 +39,7 @@ const LOGO_FIELDS = `
   buyLink,
   sold,
   category->{ title, slug },
+  industry->{ title, slug },
   tags,
   faq[] { question, answer },
   seo {
@@ -145,6 +147,37 @@ export async function getContactPage(): Promise<ContactPageData | null> {
       headline, email, replyTime,
       seo { metaTitle, metaDescription, noIndex, canonicalUrl }
     }`
+  );
+}
+
+export interface SanityCategory {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description?: string;
+}
+
+export async function getAllCategories(): Promise<SanityCategory[]> {
+  return client.fetch(
+    `*[_type == "category"] | order(title asc) { _id, title, slug, description, kind }`
+  );
+}
+
+export async function getIndustries(): Promise<SanityCategory[]> {
+  return client.fetch(
+    `*[_type == "category" && kind == "industry"] | order(title asc) { _id, title, slug, description }`
+  );
+}
+
+export async function getStyles(): Promise<SanityCategory[]> {
+  return client.fetch(
+    `*[_type == "category" && kind == "style"] | order(title asc) { _id, title, slug, description }`
+  );
+}
+
+export async function getAllLogos(): Promise<SanityLogo[]> {
+  return client.fetch(
+    `*[_type == "logo"] | order(_createdAt desc) { ${LOGO_FIELDS} }`
   );
 }
 

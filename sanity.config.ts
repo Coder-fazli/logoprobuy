@@ -68,6 +68,17 @@ export default defineConfig({
         S.list()
           .title('Məzmun')
           .items([
+            // Settings singleton
+            S.listItem()
+              .title('Parametrlər')
+              .id('settings')
+              .child(
+                S.document()
+                  .schemaType('settings')
+                  .documentId('settings')
+                  .title('Parametrlər')
+              ),
+            S.divider(),
             // Singletons
             S.listItem()
               .title('Ana Səhifə')
@@ -100,9 +111,25 @@ export default defineConfig({
             S.listItem().title('Loqolar').id('logo').child(
               S.documentTypeList('logo').title('Loqolar')
             ),
-            S.listItem().title('Kateqoriyalar').id('category').child(
-              S.documentTypeList('category').title('Kateqoriyalar')
-            ),
+            S.divider(),
+            S.listItem()
+              .title('Sənaye Kateqoriyaları')
+              .id('industries')
+              .child(
+                S.documentTypeList('category')
+                  .title('Sənaye Kateqoriyaları')
+                  .filter('_type == "category" && kind == "industry"')
+                  .defaultOrdering([{ field: 'title', direction: 'asc' }])
+              ),
+            S.listItem()
+              .title('Üslub Kateqoriyaları')
+              .id('styles')
+              .child(
+                S.documentTypeList('category')
+                  .title('Üslub Kateqoriyaları')
+                  .filter('_type == "category" && kind == "style"')
+                  .defaultOrdering([{ field: 'title', direction: 'asc' }])
+              ),
             S.divider(),
             S.listItem().title('Blog Yazıları').id('post').child(
               S.documentTypeList('post').title('Blog Yazıları')
