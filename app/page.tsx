@@ -1,4 +1,4 @@
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Hero from '@/components/sections/Hero';
 import Features from '@/components/sections/Features';
 import Testimonials from '@/components/sections/Testimonials';
@@ -20,7 +20,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Navbar />
+      <NavbarServer />
       <Hero cms={cms} />
       <Testimonials />
       <FeaturedLogos cms={cms} logos={logos} />

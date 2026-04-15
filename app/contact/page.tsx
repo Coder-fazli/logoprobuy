@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 import { getContactPage } from '@/lib/queries';
 import ContactClient from './ContactClient';
@@ -30,7 +30,7 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f3] flex flex-col">
-      <Navbar />
+      <NavbarServer />
       <ContactClient headline={headline} email={email} replyTime={replyTime} />
       <Footer />
     </div>

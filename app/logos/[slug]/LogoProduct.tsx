@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 import FaqAccordion from './FaqAccordion';
 import type { SanityLogo } from '@/lib/queries';
@@ -31,7 +31,7 @@ export default function LogoProduct({ logo }: { logo: SanityLogo }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <NavbarServer />
 
       {/* Back button */}
       <div className="container mx-auto px-6 lg:px-16 pt-8 lg:pt-20">

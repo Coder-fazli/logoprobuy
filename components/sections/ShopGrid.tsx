@@ -96,6 +96,12 @@ export default function ShopGrid({ logos, industries, styles: styleCategories }:
   const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   const [activeStyle,    setActiveStyle]    = useState<string | null>(null);
 
+  // Only show filters that have at least one logo
+  const usedIndustrySlugs = new Set(logos.map((l) => l.industry?.slug.current).filter(Boolean));
+  const usedStyleSlugs    = new Set(logos.map((l) => l.category?.slug.current).filter(Boolean));
+  const visibleIndustries = industries.filter((i) => usedIndustrySlugs.has(i.slug.current));
+  const visibleStyles     = styleCategories.filter((s) => usedStyleSlugs.has(s.slug.current));
+
   const filtered = logos.filter((l) => {
     const industryMatch = !activeIndustry || l.industry?.slug.current === activeIndustry;
     const styleMatch    = !activeStyle    || l.category?.slug.current === activeStyle;
@@ -106,21 +112,25 @@ export default function ShopGrid({ logos, industries, styles: styleCategories }:
     <div className="w-full">
 
       {/* ── Filter row 1: Industry ── */}
-      <FilterRow
-        label="Filter by Industry"
-        items={industries}
-        active={activeIndustry}
-        onChange={setActiveIndustry}
-      />
+      {visibleIndustries.length > 0 && (
+        <FilterRow
+          label="Filter by Industry"
+          items={visibleIndustries}
+          active={activeIndustry}
+          onChange={setActiveIndustry}
+        />
+      )}
 
       {/* ── Filter row 2: Category / Style ── */}
-      <FilterRow
-        label="Filter by Category"
-        items={styleCategories}
-        active={activeStyle}
-        onChange={setActiveStyle}
-        className="mt-5"
-      />
+      {visibleStyles.length > 0 && (
+        <FilterRow
+          label="Filter by Category"
+          items={visibleStyles}
+          active={activeStyle}
+          onChange={setActiveStyle}
+          className={visibleIndustries.length > 0 ? 'mt-5' : ''}
+        />
+      )}
 
       {/* ── Result count ── */}
       <p className="text-sm text-muted-foreground mt-6 mb-6">

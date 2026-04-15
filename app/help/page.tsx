@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 
 export const metadata: Metadata = {
@@ -49,7 +49,7 @@ const faqs = [
 export default function HelpPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <Navbar />
+      <NavbarServer />
       <main className="flex-1 pt-28 pb-24">
         <div className="container mx-auto px-6 lg:px-12 max-w-3xl">
 

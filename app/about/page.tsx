@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 import SocialSidebar from '@/components/ui/SocialSidebar';
 import SocialRow from '@/components/ui/SocialRow';
@@ -67,7 +67,7 @@ export default async function AboutPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <NavbarServer />
 
       {/* Desktop vertical sidebar */}
       <SocialSidebar {...socialProps} />

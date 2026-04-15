@@ -1,4 +1,4 @@
-import Navbar from '@/components/sections/Navbar';
+import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 import ShopGrid from '@/components/sections/ShopGrid';
 import { getAllLogos, getIndustries, getStyles } from '@/lib/queries';
@@ -20,7 +20,7 @@ export default async function LogosPage() {
 
   return (
     <>
-      <Navbar />
+      <NavbarServer />
 
       <main className="min-h-screen bg-white pt-24 pb-20">
         <div className="container mx-auto px-6 lg:px-12">

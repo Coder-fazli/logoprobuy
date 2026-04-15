@@ -12,7 +12,14 @@ const NAV_ITEMS = [
   { id: 3, label: 'Contact', href: '/contact', newTab: true },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  logoUrl?: string;
+  logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+}
+
+export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight = 40 }: NavbarProps) {
   const pathname = usePathname();
   const currentItem = NAV_ITEMS.find((item) => pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))) ?? NAV_ITEMS[0];
   const [active, setActive] = useState(currentItem);
@@ -31,11 +38,23 @@ export default function Navbar() {
         <div className="container mx-auto px-6 lg:px-12 h-16 flex items-center justify-between relative">
 
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
-              <span className="text-background text-sm font-bold">L</span>
-            </div>
-            <span className="text-foreground font-semibold text-base tracking-tight">LogoBuyPro</span>
+          <a href="/" className="flex items-center shrink-0">
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt={logoAlt ?? 'LogoBuyPro'}
+                width={logoWidth}
+                height={logoHeight}
+                style={{ width: logoWidth, height: logoHeight, objectFit: 'contain' }}
+              />
+            ) : (
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
+                  <span className="text-background text-sm font-bold">L</span>
+                </div>
+                <span className="text-foreground font-semibold text-base tracking-tight">LogoBuyPro</span>
+              </div>
+            )}
           </a>
 
           {/* Desktop nav */}

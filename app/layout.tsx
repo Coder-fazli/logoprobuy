@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { getSettings } from "@/lib/queries";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,10 +8,22 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "LogoBuyPro",
-  description: "Own the logo. Own the brand.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const faviconUrl = settings?.favicon?.asset.url;
+
+  return {
+    title: "LogoBuyPro",
+    description: "Own the logo. Own the brand.",
+    ...(faviconUrl && {
+      icons: {
+        icon: faviconUrl,
+        shortcut: faviconUrl,
+        apple: faviconUrl,
+      },
+    }),
+  };
+}
 
 export default function RootLayout({
   children,

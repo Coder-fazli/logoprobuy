@@ -150,6 +150,24 @@ export async function getContactPage(): Promise<ContactPageData | null> {
   );
 }
 
+export interface SanitySettings {
+  logo?: { asset: { url: string }; alt?: string };
+  logoWidth?: number;
+  logoHeight?: number;
+  favicon?: { asset: { url: string } };
+}
+
+export async function getSettings(): Promise<SanitySettings | null> {
+  return client.fetch(
+    `*[_type == "settings" && _id == "settings"][0] {
+      logo { asset->{ url }, alt },
+      logoWidth,
+      logoHeight,
+      favicon { asset->{ url } }
+    }`
+  );
+}
+
 export interface SanityCategory {
   _id: string;
   title: string;
