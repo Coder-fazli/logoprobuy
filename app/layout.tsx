@@ -14,6 +14,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "LogoBuyPro",
   description: "Own the logo. Own the brand.",
+  verification: {
+    google: "vKHZJ8Cx1qFH-w6dte-9TE-3BTx_D7Lf-mkEt-9Tsx8",
+  },
 };
 
 export default async function RootLayout({
@@ -38,7 +41,23 @@ export default async function RootLayout({
           </>
         )}
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <noscript>
+          <div>
+            <img src="https://mc.yandex.ru/watch/108599373" style={{ position: 'absolute', left: -9999 }} alt="" />
+          </div>
+        </noscript>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+          })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=108599373','ym');
+          ym(108599373,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+        `}} />
+      </body>
     </html>
   );
 }
