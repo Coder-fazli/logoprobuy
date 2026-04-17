@@ -71,17 +71,24 @@ export default async function LogoPage({ params }: Props) {
   const logo = (await getLogoBySlug(slug)) ?? buildLogoFromStatic(slug);
   if (!logo) notFound();
 
-  const jsonLd = {
+  const pageUrl = `https://logobuypro.com/logos/${slug}`;
+
+  const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: logo.title,
     description: logo.description ?? '',
     image: logo.image?.asset.url,
+    url: pageUrl,
+    brand: { '@type': 'Brand', name: 'LogoBuyPro' },
     offers: {
       '@type': 'Offer',
       price: logo.price,
       priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
+      availability: logo.sold
+        ? 'https://schema.org/SoldOut'
+        : 'https://schema.org/InStock',
+      url: pageUrl,
       seller: { '@type': 'Organization', name: 'LogoBuyPro' },
     },
     aggregateRating: {
@@ -91,12 +98,39 @@ export default async function LogoPage({ params }: Props) {
     },
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Shop', item: 'https://logobuypro.com' },
+      { '@type': 'ListItem', position: 2, name: logo.title, item: pageUrl },
+    ],
+  };
+
+  const defaultFaq = [
+    { question: 'What files will I receive?', answer: 'You will receive AI, EPS, SVG, PNG, and PDF files — everything you need for print and digital use.' },
+    { question: 'Is this logo exclusive?', answer: 'Yes. Once purchased, this logo is permanently removed from the marketplace. You are the sole owner.' },
+    { question: 'Can I trademark this logo?', answer: 'Yes. You receive full ownership and can trademark the design in your territory.' },
+    { question: 'How do I receive the files?', answer: 'Immediately after purchase you will receive a download link via email with all source files.' },
+  ];
+
+  const faqItems = (logo.faq?.length ? logo.faq : defaultFaq) as { question: string; answer: string }[];
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <LogoProduct logo={logo} />
     </>
   );
