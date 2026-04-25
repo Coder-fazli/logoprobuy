@@ -155,6 +155,10 @@ export interface SanitySettings {
   logoWidth?: number;
   logoHeight?: number;
   favicon?: { asset: { url: string; _id: string }; crop?: object; hotspot?: object };
+  twitter?: string;
+  instagram?: string;
+  linkedin?: string;
+  youtube?: string;
 }
 
 export async function getSettings(): Promise<SanitySettings | null> {
@@ -163,7 +167,8 @@ export async function getSettings(): Promise<SanitySettings | null> {
       logo { asset->{ url }, alt },
       logoWidth,
       logoHeight,
-      favicon { asset->{ url, _id }, crop, hotspot }
+      favicon { asset->{ url, _id }, crop, hotspot },
+      twitter, instagram, linkedin, youtube
     }`
   );
 }

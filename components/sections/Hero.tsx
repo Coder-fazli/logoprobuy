@@ -8,44 +8,24 @@ import { AnimatedText } from '@/components/ui/animated-underline-text';
 import { GridBackground } from '@/components/ui/background-snippets';
 import { TestimonialAvatars } from '@/components/ui/testimonial-avatars';
 import styles from './Hero.module.css';
-import type { HomePageData } from '@/lib/queries';
+import type { HomePageData, SanityLogo } from '@/lib/queries';
 
-const col1 = [
-  '/gallery-1.jpeg',
-  '/gallery-2.jpeg',
-  '/gallery-3.jpeg',
-  '/gallery-4.jpeg',
-];
-
-const col2 = [
-  '/gallery-5.jpeg',
-  '/gallery-6.jpeg',
-  '/gallery-7.jpeg',
-  '/gallery-1.jpeg',
-];
-
-const col3 = [
-  '/gallery-3.jpeg',
-  '/gallery-5.jpeg',
-  '/gallery-2.jpeg',
-  '/gallery-6.jpeg',
-];
-
-const row1 = [
+const FALLBACK = [
   '/gallery-1.jpeg',
   '/gallery-2.jpeg',
   '/gallery-3.jpeg',
   '/gallery-4.jpeg',
   '/gallery-5.jpeg',
-];
-
-const row2 = [
   '/gallery-6.jpeg',
   '/gallery-7.jpeg',
-  '/gallery-1.jpeg',
-  '/gallery-3.jpeg',
-  '/gallery-5.jpeg',
 ];
+
+function cycle(arr: string[], count: number): string[] {
+  if (!arr.length) return [];
+  const out: string[] = [];
+  while (out.length < count) out.push(...arr);
+  return out.slice(0, count);
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -96,7 +76,16 @@ function MarqueeRow({ images, reverse = false }: { images: string[]; reverse?: b
   );
 }
 
-export default function Hero({ cms }: { cms?: HomePageData | null }) {
+export default function Hero({ cms, logos }: { cms?: HomePageData | null; logos?: SanityLogo[] }) {
+  const allImages = logos?.length
+    ? logos.map((l) => l.image?.asset.url).filter(Boolean) as string[]
+    : FALLBACK;
+
+  const col1 = cycle(allImages, 5);
+  const col2 = cycle([...allImages].reverse(), 5);
+  const col3 = cycle(allImages.slice(Math.floor(allImages.length / 2)), 5);
+  const row1 = cycle(allImages, 6);
+  const row2 = cycle([...allImages].reverse(), 6);
   const headline1    = cms?.heroHeadline1    ?? 'Own the Logo,';
   const headline2    = cms?.heroHeadline2    ?? 'Own the Brand';
   const subheadline  = cms?.heroSubheadline  ?? 'Discover thousands of professional logo designs from top designers. Find the perfect brand identity for your business.';

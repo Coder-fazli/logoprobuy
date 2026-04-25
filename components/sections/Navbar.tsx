@@ -2,9 +2,10 @@
 
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import { SuggestiveSearch } from '@/components/ui/suggestive-search';
 
 const NAV_ITEMS = [
   { id: 1, label: 'Shop',    href: '/logos' },
@@ -19,8 +20,9 @@ interface NavbarProps {
   logoHeight?: number;
 }
 
-export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight = 40 }: NavbarProps) {
+export default function Navbar({ logoUrl, logoAlt, logoHeight = 40 }: NavbarProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const currentItem = NAV_ITEMS.find((item) => pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))) ?? NAV_ITEMS[0];
   const [active, setActive] = useState(currentItem);
   const [isHover, setIsHover] = useState<typeof NAV_ITEMS[0] | null>(null);
@@ -101,8 +103,23 @@ export default function Navbar({ logoUrl, logoAlt, logoWidth = 140, logoHeight =
             </ul>
           </nav>
 
-          {/* Right column — mobile toggle (desktop stays empty) */}
-          <div className="flex items-center justify-end">
+          {/* Right column — search on desktop, hamburger on mobile */}
+          <div className="flex items-center justify-end gap-3">
+            <SuggestiveSearch
+              className="hidden md:flex w-48 lg:w-64 h-9 text-sm bg-gray-100 border-gray-200"
+              suggestions={[
+                'Minimalist logo',
+                'Tech startup logo',
+                'Fashion brand logo',
+                'Food & beverage logo',
+                'Sports team logo',
+                'Real estate logo',
+              ]}
+              effect="typewriter"
+              onSubmit={(val) => {
+                if (val.trim()) router.push(`/logos?q=${encodeURIComponent(val.trim())}`);
+              }}
+            />
             <button
               className="md:hidden p-2 text-foreground"
               onClick={() => setMenuOpen((o) => !o)}

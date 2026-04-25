@@ -38,6 +38,12 @@ export const settings = defineType({
       description: 'Brauzer tabında görünən kiçik ikon. Yükləndikdən sonra kəsmə/fokuslama üçün şəkli redaktə edin.',
       options: { hotspot: true },
     }),
+
+    // ── Social links ──────────────────────────────────────────────
+    defineField({ name: 'twitter',   title: 'Twitter / X URL',  type: 'url' }),
+    defineField({ name: 'instagram', title: 'Instagram URL',    type: 'url' }),
+    defineField({ name: 'linkedin',  title: 'LinkedIn URL',     type: 'url' }),
+    defineField({ name: 'youtube',   title: 'YouTube URL',      type: 'url' }),
   ],
 
   preview: {

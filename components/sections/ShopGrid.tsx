@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { Heart } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Heart, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useSearchParams, useRouter } from 'next/navigation';
 import type { SanityLogo, SanityCategory } from '@/lib/queries';
 import styles from './FeaturedLogos.module.css';
 
@@ -93,8 +94,16 @@ interface Props {
 }
 
 export default function ShopGrid({ logos, industries, styles: styleCategories }: Props) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [activeIndustry, setActiveIndustry] = useState<string | null>(null);
   const [activeStyle,    setActiveStyle]    = useState<string | null>(null);
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+
+  // Keep query in sync when URL changes
+  useEffect(() => {
+    setQuery(searchParams.get('q') ?? '');
+  }, [searchParams]);
 
   // Only show filters that have at least one logo
   const usedIndustrySlugs = new Set(logos.map((l) => l.industry?.slug.current).filter(Boolean));
@@ -103,13 +112,50 @@ export default function ShopGrid({ logos, industries, styles: styleCategories }:
   const visibleStyles     = styleCategories.filter((s) => usedStyleSlugs.has(s.slug.current));
 
   const filtered = logos.filter((l) => {
+    const q = query.toLowerCase();
+    const keywordMatch = !q || (
+      l.title.toLowerCase().includes(q) ||
+      (l.category?.title ?? '').toLowerCase().includes(q) ||
+      (l.industry?.title ?? '').toLowerCase().includes(q) ||
+      (l.description ?? '').toLowerCase().includes(q)
+    );
     const industryMatch = !activeIndustry || l.industry?.slug.current === activeIndustry;
     const styleMatch    = !activeStyle    || l.category?.slug.current === activeStyle;
-    return industryMatch && styleMatch;
+    return keywordMatch && industryMatch && styleMatch;
   });
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="w-full">
+
+      {/* ── Search bar ── */}
+      <div className="relative mb-8">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              const v = query.trim();
+              router.push(v ? `/logos?q=${encodeURIComponent(v)}` : '/logos');
+            }
+          }}
+          placeholder="Search by name, style, industry…"
+          className="w-full h-11 pl-10 pr-10 rounded-xl border border-gray-200 bg-gray-50 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D33C3C]/30 focus:border-[#D33C3C] transition-all"
+        />
+        {query && (
+          <button
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700 transition-colors"
+            onClick={() => { setQuery(''); inputRef.current?.focus(); }}
+            aria-label="Clear search"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
 
       {/* ── Filter row 1: Industry ── */}
       {visibleIndustries.length > 0 && (
@@ -133,16 +179,16 @@ export default function ShopGrid({ logos, industries, styles: styleCategories }:
       )}
 
       {/* ── Result count ── */}
-      <p className="text-sm text-muted-foreground mt-6 mb-6">
-        {filtered.length} logo{filtered.length !== 1 ? 's' : ''} found
-        {activeIndustry || activeStyle ? (
+      <p className="text-sm text-muted-foreground mt-6 mb-6 flex items-center gap-3 flex-wrap">
+        <span>{filtered.length} logo{filtered.length !== 1 ? 's' : ''} found{query ? ` for "${query}"` : ''}</span>
+        {(activeIndustry || activeStyle || query) && (
           <button
-            onClick={() => { setActiveIndustry(null); setActiveStyle(null); }}
-            className="ml-3 text-xs font-semibold text-gray-400 hover:text-gray-700 underline underline-offset-2 transition-colors"
+            onClick={() => { setActiveIndustry(null); setActiveStyle(null); setQuery(''); router.push('/logos'); }}
+            className="text-xs font-semibold text-gray-400 hover:text-gray-700 underline underline-offset-2 transition-colors"
           >
-            Clear filters
+            Clear all
           </button>
-        ) : null}
+        )}
       </p>
 
       {/* ── Grid ── */}

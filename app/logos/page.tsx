@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import NavbarServer from '@/components/sections/NavbarServer';
 import Footer from '@/components/sections/Footer';
 import ShopGrid from '@/components/sections/ShopGrid';
@@ -46,7 +47,9 @@ export default async function LogosPage() {
             </p>
           </div>
 
-          <ShopGrid logos={logos} industries={industries} styles={styles} />
+          <Suspense fallback={<div className="py-24 text-center text-muted-foreground text-sm">Loading…</div>}>
+            <ShopGrid logos={logos} industries={industries} styles={styles} />
+          </Suspense>
         </div>
       </main>
 

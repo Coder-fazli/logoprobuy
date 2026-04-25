@@ -54,7 +54,7 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       <main>
         <NavbarServer />
-        <Hero cms={cms} />
+        <Hero cms={cms} logos={logos} />
         <Testimonials />
         <FeaturedLogos cms={cms} logos={logos} />
         <Features cms={cms} />
