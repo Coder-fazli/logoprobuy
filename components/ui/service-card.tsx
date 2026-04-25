@@ -28,13 +28,13 @@ export interface ServiceCardProps
     VariantProps<typeof cardVariants> {
   title: string;
   href?: string;
-  imgSrc: string;
-  imgAlt: string;
+  imgSrc?: string;
+  imgAlt?: string;
   description?: string;
 }
 
 const ServiceCard = React.forwardRef<HTMLDivElement, ServiceCardProps>(
-  ({ className, variant, title, href, imgSrc, imgAlt, description, ...props }, ref) => {
+  ({ className, variant, title, href, imgSrc, imgAlt = '', description, ...props }, ref) => {
     
     // Animation variants for Framer Motion
     const cardAnimation = {
@@ -87,12 +87,14 @@ const ServiceCard = React.forwardRef<HTMLDivElement, ServiceCardProps>(
           )}
         </div>
         
-        <motion.img
-          src={imgSrc}
-          alt={imgAlt}
-          className="absolute -right-8 -bottom-8 w-40 h-40 object-contain opacity-90 group-hover:opacity-100"
-          variants={imageAnimation}
-        />
+        {imgSrc && (
+          <motion.img
+            src={imgSrc}
+            alt={imgAlt}
+            className="absolute -right-8 -bottom-8 w-40 h-40 object-contain opacity-90 group-hover:opacity-100"
+            variants={imageAnimation}
+          />
+        )}
       </motion.div>
     );
   }

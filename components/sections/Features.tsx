@@ -9,51 +9,34 @@ const features = [
   {
     title: 'Lightning Delivery',
     description: 'Your files hit your inbox the moment you checkout. No queues, no waiting on a designer.',
-
-    emoji: '⚡',
     variant: 'default' as const,
   },
   {
     title: 'Yours Alone, Forever',
     description: 'Full ownership transferred on purchase. This logo will never be sold to anyone else.',
-
-    emoji: '🔒',
     variant: 'gray' as const,
   },
   {
     title: 'Tweak It Your Way',
     description: 'Colors, fonts, proportions — request adjustments at no extra charge. We make it fit perfectly.',
-
-    emoji: '🎨',
     variant: 'default' as const,
   },
   {
     title: 'Trademark-Ready',
     description: 'Clean vector files with zero conflicts. File your trademark from day one without legal headaches.',
-
-    emoji: '⚖️',
     variant: 'gray' as const,
   },
   {
     title: 'Agency Quality, Startup Price',
     description: "Skip the $5,000 branding agency bill. Get a world-class logo at a fraction of the cost.",
-
-    emoji: '💸',
     variant: 'default' as const,
   },
   {
     title: 'Crafted by Real Designers',
     description: 'Every logo is made by a vetted professional — not a generator, not a template farm.',
-
-    emoji: '✦',
     variant: 'gray' as const,
   },
 ];
-
-function emojiToSvgUrl(emoji: string) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><text y="96" font-size="96" opacity="0.18">${emoji}</text></svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
 
 const containerVariants = {
   hidden: {},
@@ -120,8 +103,6 @@ export default function Features({ cms }: { cms?: HomePageData | null }) {
               >
                 <ServiceCard
                   title={feature.title}
-                  imgSrc={emojiToSvgUrl(feature.emoji)}
-                  imgAlt={feature.title}
                   description={feature.description}
                   variant={feature.variant}
                   className="min-h-[200px] shadow-none border-0"
